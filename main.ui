@@ -102,7 +102,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Id:</string>
+    <string>Id</string>
    </property>
   </widget>
   <widget class="QLabel" name="Name_title_label">
@@ -140,7 +140,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Название:</string>
+    <string>Название</string>
    </property>
   </widget>
   <widget class="QLabel" name="Degree_title_label">
@@ -178,7 +178,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Степень Обжарки:</string>
+    <string>Степень Обжарки</string>
    </property>
   </widget>
   <widget class="QTextBrowser" name="Descript_textBrowser">
@@ -219,7 +219,7 @@
   <widget class="QLabel" name="Price_view_label">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>240</x>
      <y>440</y>
      <width>111</width>
      <height>16</height>
@@ -232,13 +232,13 @@
     </font>
    </property>
    <property name="text">
-    <string>Цена:</string>
+    <string>Цена</string>
    </property>
   </widget>
   <widget class="QLabel" name="Volume_title_label">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>370</x>
      <y>400</y>
      <width>121</width>
      <height>16</height>
@@ -257,7 +257,7 @@
   <widget class="QLabel" name="Price_title_label">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>240</x>
      <y>400</y>
      <width>111</width>
      <height>16</height>
@@ -276,7 +276,7 @@
   <widget class="QLabel" name="Volume_view_label">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>370</x>
      <y>440</y>
      <width>121</width>
      <height>16</height>
@@ -289,7 +289,45 @@
     </font>
    </property>
    <property name="text">
-    <string>Обьем:</string>
+    <string>Обьем</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Type_title_label">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>400</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Тип:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Type_view_label">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>440</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Тип</string>
    </property>
   </widget>
  </widget>

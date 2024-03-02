@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, make_response, abort
-from flask import session
-from data import db_session
+from flask import session, jsonify
+from data import db_session, news_api
 from data.users import User
 from data.news import News
 from forms.user import RegisterForm
@@ -15,6 +15,16 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['PERMANENT_SESSION_LIFETIME'] = dt.timedelta(days=365)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(400)
+def bad_request(error):
+    return make_response(jsonify({'error': 'bad_request'}), 400)
 
 
 @login_manager.user_loader
@@ -160,7 +170,9 @@ def news_delete(id):
 
 def main():
     db_session.global_init('db/blogs.db')
+    app.register_blueprint(news_api.blueprint)
     app.run()
+
 
 if __name__ == '__main__':
     main()

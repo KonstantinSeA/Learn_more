@@ -9,22 +9,15 @@ from forms.news import NewsForm
 import datetime as dt
 from flask_login import LoginManager, login_user, login_required, logout_user
 from flask_login import current_user
+from flask_restful import reqparse, abort, Api, Resource
+
 
 app = Flask(__name__)
+api = Api(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['PERMANENT_SESSION_LIFETIME'] = dt.timedelta(days=365)
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
-
-
-@app.errorhandler(400)
-def bad_request(error):
-    return make_response(jsonify({'error': 'bad_request'}), 400)
 
 
 @login_manager.user_loader
@@ -170,7 +163,8 @@ def news_delete(id):
 
 def main():
     db_session.global_init('db/blogs.db')
-    app.register_blueprint(news_api.blueprint)
+    api.add_resource(news_api.NewsListResource, '/api/v2/news')
+    api.add_resource(news_api.NewsResource, '/api/v2/news/<int:news_id>')
     app.run()
 
 

@@ -1,57 +1,57 @@
-import flask
-
-from flask import jsonify, make_response, request
+from flask_restful import reqparse, abort, Api, Resource
 from . import db_session
+from flask import jsonify
 from .news import News
 
 
-blueprint = flask.Blueprint('news_api', __name__, template_folder='templates')
-
-
-@blueprint.route('/api/news')
-def get_news():
-    db_sess = db_session.create_session()
-    news = db_sess.query(News).all()
-    return jsonify({
-        'news': [item.to_dict(only=('title', 'content', 'user.name')) for item in news]
-    })
-
-
-@blueprint.route('/api/news/<int:news_id>', methods=['GET'])
-def get_one_news(news_id):
-    db_sess = db_session.create_session()
-    news = db_sess.query(News).get(news_id)
+def abort_if_news_not_found(news_id):
+    session = db_session.create_session()
+    news = session.query(News).get(news_id)
     if not news:
-        return make_response(jsonify({'error': 'Not found'}), 404)
-    return jsonify({
-        'news': news.to_dict(only=('title', 'content', 'user.name'))
-    })
+        abort(404, message=f'News {news_id} not found')
 
 
-@blueprint.route('/api/news', methods=['POST'])
-def add_news():
-    if not request.json:
-        return make_response(jsonify({'error': 'empty request'}), 400)
-    if not all(key in request.json for key in ['title', 'content', 'user_id', 'is_private']):
-        return make_response(jsonify({'error': 'bad request'}), 400)
-    db_sess = db_session.create_session()
-    news = News(
-        title=request.json['title'],
-        content=request.json['content'],
-        user_id=request.json['user_id'],
-        is_private=request.json['is_private']
-    )
-    db_sess.add(news)
-    db_sess.commit()
-    return jsonify({'status': 'ok'})
+parser = reqparse.RequestParser()
+parser.add_argument('title', required=True)
+parser.add_argument('content', required=True)
+parser.add_argument('is_private', required=True)
+parser.add_argument('user_id', required=True, type=int)
 
 
-@blueprint.route('/api/news/<int:news_id>', methods=['DELETE'])
-def delete_news(news_id):
-    db_sess = db_session.create_session()
-    news = db_sess.query(News).get(news_id)
-    if not news:
-        return make_response(jsonify({'error': 'Not found'}), 404)
-    db_sess.delete(news)
-    db_sess.commit()
-    return jsonify({'status': 'ok'})
+class NewsResource(Resource):
+    def get(self, news_id):
+        abort_if_news_not_found(news_id)
+        session = db_session.create_session()
+        news = session.query(News).get(news_id)
+        return jsonify({'news': news.to_dict(
+            only=('title', 'content', 'user_id', 'is_private'))})
+
+    def delete(self, news_id):
+        abort_if_news_not_found(news_id)
+        session = db_session.create_session()
+        news = session.query(News).get(news_id)
+        session.delete(news)
+        session.commit()
+        return jsonify({'result': 'ok'})
+
+
+class NewsListResource(Resource):
+    def get(self):
+        session = db_session.create_session()
+        news = session.query(News).all()
+        return jsonify({'news': [item.to_dict(
+            only=('title', 'content', 'user_id', 'is_private'))
+            for item in news]})
+
+    def post(self):
+        args = parser.parse_args()
+        sess = db_session.create_session()
+        news = News(
+            title=args['title'],
+            content=args['content'],
+            user_id=args['user_id'],
+            is_private=args['is_private']
+        )
+        sess.add(news)
+        sess.commit()
+        return jsonify({'id': news.id})

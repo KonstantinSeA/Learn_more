@@ -1,84 +1,64 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def main_page():
-    return "А программа живет на /load_image"
+    return "А программа живет на /carousel"
 
 
 @app.route('/index')
 def index():
-    return "А программа живет на /load_image"
+    return "А программа живет на /carousel"
 
 
-@app.route('/load_image', methods=['POST', 'GET'])
+@app.route('/carousel')
 def astronaut_selection():
-    if request.method == 'GET':
-        return f'''
-        <!doctype html>
-        <html lang="en">
-          <head>
+    return f"""
+    <!doctype html>
+    <html lang="en">
+        <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-            crossorigin="anonymous">
             <link rel="stylesheet" 
-              type="text/css" href="{url_for('static', filename='css/style.css')}" />
-            <title>Отбор астронавтов</title>
-            </head>
-          <body>
-            <h1 align="center">Анкета Претендента</h1>
-            <h2 align="center">на участие в миссии</h2>
-            <div>
-              <form class="selection_form" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="photo">Приложите фотографию</label>
-                  <input type="file" class="form-control-file" id="photo" name="file">
-                </div>
-                <button type="submit" class="btn btn-primary">Отправить</button>
-              </form>
-            </div>
-          </body>
-        </html>'''
-    elif request.method == 'POST':
-        f = request.files['file']
-        with open(f'static/img/{f.filename}', mode='wb') as fod:
-            fod.write(f.read())
-        return f'''
-    <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+              integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
               crossorigin="anonymous">
-        <link 
-          rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
-        <title>Отбор астронавтов</title>
-    </head>
-    <body>
-        <h1 align="center">Анкета Претендента</h1>
-        <h2 align="center">на участие в миссии</h2>
-        <div>
-            <form class="selection_form" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="photo">Приложите фотографию</label>
-                    <input type="file" class="form-control-file" id="photo" name="file">
+            <link rel="stylesheet" type="text/css" 
+              href="{url_for('static', filename='css/style.css')}" />
+            <title>Пейзажи Марса</title>
+        </head>
+        <body>
+            <h1 style="text-align: center">Результаты отбора</h1>
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src={url_for('static', filename='img/Mars_1.jpg')} 
+                          class="d-block w-100" alt="МММ Ошибочка">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={url_for('static', filename='img/Mars_2.jpg')} 
+                          class="d-block w-100" alt="МММ Ошибочка">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={url_for('static', filename='img/Mars_3.jpg')} 
+                          class="d-block w-100" alt="МММ Ошибочка">
+                    </div>
                 </div>
-                <img src="{url_for('static', filename='img/' + f.filename)}" 
-                  width="427" height="427"
-                  alt="здесь должна была быть картинка, но не нашлась">
-                <button type="submit" class="btn btn-primary">Отправить</button>
-            </form>
-        </div>
-    </body>
-</html>'''
+                <button class="carousel-control-prev" type="button" 
+                  data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" 
+                  data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </body>
+    </html>"""
 
 
 if __name__ == '__main__':

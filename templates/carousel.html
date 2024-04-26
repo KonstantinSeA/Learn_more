@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 style="text-align: center">Результаты отбора</h1>
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            {% for file in files %}
+                <div class="carousel-item active">
+                    <img src="static/img/{{file}}" class="d-block w-100" alt="МММ Ошибочка">
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <h6 align="center">Добавить фото</h6>
+        <p>
+            <p align="center">{{ form.file.file }}</p>
+            {{ form.file(class="form-control" ) }}<br>
+            {% for error in form.file.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p align="center">{{ form.submit(type="submit", class="btn btn-outline-success") }}</p>
+        <div>{{ message }}</div>
+        <br>
+    </form>
+
+{% endblock %}

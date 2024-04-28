@@ -1,6 +1,7 @@
-from flask import Flask, url_for, render_template
-from forms.image import ImageForm
-import os
+from flask import Flask, render_template
+import json
+import random
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -12,21 +13,12 @@ def index_page():
     return render_template('base.html', title=title)
 
 
-@app.route('/carousel', methods=['GET', 'POST'])
+@app.route('/member')
 def carousel():
-    form = ImageForm()
-    files = os.listdir('static/img')
-    if form.validate_on_submit():
-        f = form.file.data
-        if not (f.filename.endswith('.jpg') or f.filename.endswith('.png')):
-            return render_template('carousel.html', title='Карусель', files=files,
-                                   message='Выбранный Файл Не Фото', form=form)
-        f.save(f'static/img/{f.filename}')
-        files = os.listdir('static/img')
-        return render_template('carousel.html', title='Карусель', files=files,
-                               message='Фото Добавлено', form=form)
-    return render_template('carousel.html', title='Карусель', files=files,
-                           form=form)
+    with open('templates/users.json', mode='r', encoding='utf-8') as file:
+        users = json.load(file)
+    member = users[random.choice(list(users.keys()))]
+    return render_template('member.html', title=member['name'], member=member, sorted=sorted)
 
 
 if __name__ == '__main__':

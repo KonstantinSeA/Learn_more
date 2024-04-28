@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 align="center">{{ member['name'] + ' ' + member['surname'] }}</h1>
+    <img src="{{ member['image'] }}">
+    <h3 align="center">{{ ', '.join(sorted(member['speciality'])) }}</h3>
+{% endblock %}

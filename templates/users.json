@@ -1,0 +1,8 @@
+{
+ "Ридли": {"name": "Ридли", "surname": "Скотт", "image":  "https://thumbs.dreamstime.com/b/карикатурный-астронавт-изолированный-на-белом-фоне-милый-мультфильм-157217867.jpg", "speciality": ["Пилот Дронов", "Пилот", "Штурман"]},
+ "Энди": {"name": "Энди", "surname": "Уир", "image":  "https://thumbs.dreamstime.com/b/ð°ñ%C2%81ñ‚ñ€oð%C2%BDð°ð²ñ‚-ð%C2%BCñƒð»ñœñ‚ñ„ð¸ð»ñœð%C2%BCð°-ð-ð°ð²ð°ñ%C2%8F-ð±oð»ñœñˆð¸ðµ-ð¿ð°ð»ñœñ†ñ%E2%80%B9-ñ€ñƒðºð¸-ð²ð²ðµñ€ñ…-ð¸ð»ð»ñžñ%C2%81ñ‚ñ€ð°ñ†ð¸ñ%C2%8F-139353578.jpg", "speciality": ["Оператор Марсохода", "Киберинженер", "Гляциолог"]},
+ "Марк": {"name": "Марк" ,"surname": "Уотни", "image":  "https://img2.freepng.ru/20200114/pbt/transparent-astronaut-5e1f264d7e0251.4291924715790997255161.jpg", "speciality": ["Инженер Жизнеобеспечения", "Астрогеолог", "Специалист по Радиационной Защите"]},
+ "Венката": {"name": "Венката" ,"surname": "Капур", "image":  "https://img.freepik.com/premium-vector/cartoon-astronaut-floating_33070-4076.jpg?w=2000", "speciality": ["Инженер-Исследователь", "Экзобиолог", "Метеоролог"]},
+ "Тедди": {"name": "Тедди" ,"surname": "Сандерс", "image":  "https://gas-kvas.com/grafic/uploads/posts/2024-01/gas-kvas-com-p-skafandr-dlya-detei-na-prozrachnom-fone-27.png", "speciality": ["Строитель", "Врач", "Штурман"]},
+ "Шон": {"name": "Шон" ,"surname": "Бин", "image":  "https://thumbs.dreamstime.com/b/astronaut-illustration-white-background-45903086.jpg", "speciality": ["Климатолог", "Инженер По Терраформированию", "Штукатурщик"]}
+}

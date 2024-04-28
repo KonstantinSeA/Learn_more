@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
-@app.route('/index')
+@app.route('/')
 def index_page():
     title = 'Не та страница'
     return render_template('base.html', title=title)
@@ -22,6 +22,7 @@ def carousel():
             return render_template('carousel.html', title='Карусель', files=files,
                                    message='Выбранный Файл Не Фото', form=form)
         f.save(f'static/img/{f.filename}')
+        files = os.listdir('static/img')
         return render_template('carousel.html', title='Карусель', files=files,
                                message='Фото Добавлено', form=form)
     return render_template('carousel.html', title='Карусель', files=files,
